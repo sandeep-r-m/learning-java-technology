@@ -62,7 +62,7 @@ public class TodoServiceImpl implements TodoService {
 		Optional<List<TodoItem>> todoItemsOpt = collect(todoItemsIter, filter);
 
 		List<TodoItem> todoItemList = todoItemsOpt
-				.orElseThrow(() -> TodoServiceException.newInstance("No Todo items found!"));
+				.orElseThrow(() -> TodoServiceException.newInstance("No Todo item found!"));
 
 		return todoItemList.get(0);
 	}

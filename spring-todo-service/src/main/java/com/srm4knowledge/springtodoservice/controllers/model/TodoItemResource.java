@@ -24,6 +24,7 @@ public class TodoItemResource implements Serializable {
 
 	private String desc;
 
+	// @JsonSerialize(using = ZonedDateTimeSerializer.class)
 	private ZonedDateTime dateCreated;
 
 	public static TodoItemResource newInstance(Long id, String name, String desc) {
