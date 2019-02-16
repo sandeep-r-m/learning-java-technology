@@ -27,8 +27,11 @@ public class TodoItem {
 	@Column(name = "TODO_ITEM_DESCRIPTION", length = 250, nullable = true, updatable = true, insertable = true)
 	private String description;
 
-	@Column(name = "TODO_ITEM_CREATED_DATE_TIME", nullable = false, updatable = false, insertable = true)
+	@Column(name = "TODO_ITEM_CREATED_DATETIME", nullable = false, updatable = false, insertable = true)
 	private LocalDateTime createDateTime;
+
+	@Column(name = "TODO_ITEM_UPDATED_DATETIME", nullable = false, updatable = true, insertable = true)
+	private LocalDateTime updateDateTime;
 
 	public static TodoItem newInstance(String name, String description) {
 		TodoItem item = new TodoItem();

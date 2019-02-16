@@ -74,6 +74,8 @@ public class TodoServiceImpl implements TodoService {
 		if (null == todoItem)
 			throw new TodoServiceException("todoItem is null");
 
+		todoItem.setUpdateDateTime(LocalDateTime.now());
+
 		TodoItem saved = todoItemRepository.save(todoItem);
 
 		logger.debug("Exiting...");

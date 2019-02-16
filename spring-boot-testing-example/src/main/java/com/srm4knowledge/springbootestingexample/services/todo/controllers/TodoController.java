@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.srm4knowledge.springbootestingexample.services.todo.controllers.common.ResponseWrapper;
@@ -16,6 +17,14 @@ import com.srm4knowledge.springbootestingexample.services.todo.domain.TodoItem;
 import com.srm4knowledge.springbootestingexample.services.todo.services.TodoService;
 import com.srm4knowledge.springbootestingexample.services.todo.services.common.TodoServiceException;
 
+/**
+ * Todo Service Controller <br>
+ * Exception handling is done by a custom exception handler
+ * <code>CustomResponseEntityExceptionHandler.java</code><br>
+ * 
+ * @author srmmbp
+ *
+ */
 @RestController
 @RequestMapping(path = "/todos", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
 		MediaType.APPLICATION_JSON_VALUE })
@@ -24,51 +33,27 @@ public class TodoController {
 	@Autowired
 	private TodoService todoService;
 
-	@GetMapping(path = "/{id}")
-	public ResponseEntity<?> getTodoItemById(@PathVariable Long id) {
+	// @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+	// @GetMapping(path = "/{id}")
+	public ResponseEntity<?> getTodoItemById(@PathVariable Long id) throws TodoServiceException {
 
-		try {
+		TodoItem todItem = todoService.getTodoItemById(id);
 
-			TodoItem todItem = todoService.getTodoItemById(id);
+		ResponseWrapper responseWrapper = ResponseWrapper.newSuccessInstance();
+		responseWrapper.getTodoItems().add(todItem);
 
-			ResponseWrapper responseWrapper = ResponseWrapper.newSuccessInstance();
-			responseWrapper.getTodoItems().add(todItem);
-
-			return new ResponseEntity<ResponseWrapper>(responseWrapper, HttpStatus.OK);
-
-		} catch (TodoServiceException e) {
-
-			ResponseWrapper responseWrapper = ResponseWrapper.newErrorInstance();
-			responseWrapper.setErrorMessage(e.getMessage());
-
-			return new ResponseEntity<ResponseWrapper>(responseWrapper, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
+		return new ResponseEntity<ResponseWrapper>(responseWrapper, HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<ResponseWrapper> addTodoItem(@RequestBody TodoItem todoItem) {
+	public ResponseEntity<ResponseWrapper> addTodoItem(@RequestBody TodoItem todoItem) throws TodoServiceException {
 
-		try {
+		TodoItem saved = todoService.addTodoItem(todoItem);
 
-			System.out.println("todoItem " + todoItem);
+		ResponseWrapper responseWrapper = ResponseWrapper.newSuccessInstance();
+		responseWrapper.getTodoItems().add(saved);
 
-			TodoItem saved = todoService.addTodoItem(todoItem);
-
-			ResponseWrapper responseWrapper = ResponseWrapper.newSuccessInstance();
-			responseWrapper.getTodoItems().add(saved);
-
-			return new ResponseEntity<ResponseWrapper>(responseWrapper, HttpStatus.OK);
-
-		} catch (TodoServiceException e) {
-
-			ResponseWrapper responseWrapper = ResponseWrapper.newErrorInstance();
-			responseWrapper.setErrorMessage(e.getMessage());
-
-			return new ResponseEntity<ResponseWrapper>(responseWrapper, HttpStatus.INTERNAL_SERVER_ERROR);
-
-		}
-
+		return new ResponseEntity<ResponseWrapper>(responseWrapper, HttpStatus.OK);
 	}
 
 }
