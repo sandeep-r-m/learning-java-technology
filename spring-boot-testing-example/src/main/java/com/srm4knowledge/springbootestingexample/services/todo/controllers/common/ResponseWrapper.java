@@ -12,8 +12,6 @@ public class ResponseWrapper {
 
 	private String status = "";
 
-	private String errorMessage = "";
-
 	private List<TodoItem> todoItems = new ArrayList<>();
 
 	private ResponseWrapper() {
@@ -25,10 +23,10 @@ public class ResponseWrapper {
 		return responseWrapper;
 	}
 
-	public static ResponseWrapper newErrorInstance() {
-		ResponseWrapper responseWrapper = new ResponseWrapper();
-		responseWrapper.setStatus("ERROR");
-		return responseWrapper;
-	}
+	/*
+	 * public static ResponseWrapper newErrorInstance() { ResponseWrapper
+	 * responseWrapper = new ResponseWrapper(); responseWrapper.setStatus("ERROR");
+	 * return responseWrapper; }
+	 */
 
 }
