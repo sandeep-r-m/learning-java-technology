@@ -3,7 +3,6 @@ package com.srm4knowledge.functionalreactiveprogramming.eventdrivenprogramming;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.reactivex.Observer;
-import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 
 public class SimpleUserServiceImpl implements UserService {

@@ -1,7 +1,5 @@
 package com.srm4knowledge.functionalreactiveprogramming;
 
-import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Observable;
 import io.reactivex.observables.ConnectableObservable;
 import io.reactivex.schedulers.Schedulers;

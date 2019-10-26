@@ -46,8 +46,8 @@ public class EmailMonitoringService {
 
 		Logger.log("User Event received!");
 
-		EmailDetails emailDetails = EmailDetails.newInstance(Arrays.asList(userEvent.getEmailAddress()),
-				Arrays.asList(""), Arrays.asList(""), "Hello!", "Good Morning!");
+		EmailDetails emailDetails = new EmailDetails(Arrays.asList(userEvent.getEmailAddress()), Arrays.asList(""),
+				Arrays.asList(""), "Hello!", "Good Morning!");
 
 		try {
 			emailService.send(emailDetails);
